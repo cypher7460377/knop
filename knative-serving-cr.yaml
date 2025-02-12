@@ -1,0 +1,8 @@
+apiVersion: operator.knative.dev/v1alpha1
+kind: KnativeOperator
+metadata:
+  name: knative-serving
+  namespace: knative-operator
+spec:
+  serving: true  # Set to true to install Knative Serving
+  eventing: false  # Set to false if you don't want to install Knative Eventing
