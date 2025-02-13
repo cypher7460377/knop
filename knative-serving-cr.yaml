@@ -1,8 +1,13 @@
 apiVersion: operator.knative.dev/v1beta1
-kind: KnativeOperator
+kind: KnativeServing
 metadata:
   name: knative-serving
-  namespace: knative-operator
+  namespace: knative-serving
 spec:
-  serving: true  # Set to true to install Knative Serving
-  eventing: false  # Set to false if you don't want to install Knative Eventing
+  # ...
+  config:
+    istio:
+      local-gateways: |
+        - name: knative-local-gateway
+          namespace: istio-system
+          service: knative-local-gateway.istio-system.svc.cluster.local
