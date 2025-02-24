@@ -25,5 +25,5 @@ spec:
       kubernetes.podspec-affinity: "enabled"
       kubernetes.podspec-runtimeclassname: "enabled"
   controller-custom-certs:
-    name: testCert
-    type: ConfigMap
+    name: custom-ca-certs
+    type: Secret
