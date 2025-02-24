@@ -11,3 +11,33 @@ spec:
         - name: knative-local-gateway
           namespace: istio-system
           service: knative-local-gateway.istio-system.svc.cluster.local
+      gateway:
+        "istio-system.your-gateway": "istio-ingressgateway.istio-system.svc.cluster.local"
+    networking:
+      domainTemplate: "{{.Name}}-{{.Namespace}}.{{.Domain}}"
+    domain:
+      "your.domain.com": ""
+    features:
+      kubernetes.podspec-persistent-volume-claim: "enabled"
+      kubernetes.podspec-persistent-volume-write: "enabled"
+      kubernetes.podspec-nodeselector: "enabled"
+      kubernetes.podspec-tolerations: "enabled"
+      kubernetes.podspec-affinity: "enabled"
+      kubernetes.podspec-runtimeclassname: "enabled"
+  controller:
+    deployment:
+      spec:
+        template:
+          spec:
+            containers:
+              - name: controller
+                env:
+                  - name: SSL_CERT_DIR
+                    value: /etc/ca-certificates/custom
+                volumeMounts:
+                  - mountPath: /etc/ca-certificates/custom
+                    name: custom-certs
+            volumes:
+              - name: custom-certs
+                secret:
+                  secretName: custom-certs
